@@ -19,6 +19,7 @@
           <label for="Latitude">Latitude: </label><input class="lat" type="text" placeholder="Enter Latitude">
           <label for="Longitude">Longitude: </label><input class="long" type="text" placeholder="Enter Longitude">
           <div onclick="userInputMarker();" class="btn btn-success">Place Marker</div>
+          <div onclick="removeMarker();" class="btn btn-danger">Remove Marker</div>
         </div>
       </div>
       <div class="col-xs-5 content">
@@ -27,8 +28,43 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJcBd60Ryq1s4zOZSbEG22pkW8cWHAv5U&callback=initMap"></script>
-    <script type="text/javascript" src="jsMap.js"></script>
-    <script>initMap;</script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBh1FmhuVn_BtJ2HXZn6VpmdtjqQY6ZRFk&callback=initMap"></script>
+    <!-- <script type="text/javascript" src="jsMap.js"></script> -->
+    <script>
+    var map;
+    var marker;
+    var myLatLng;
+function initMap() {
+        myLatLng = {lat: 39.757609, lng: -105.007005};
+
+  map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 10,
+    center: myLatLng,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  });
+
+  var marker = new google.maps.Marker({
+    position: myLatLng,
+    map: map,
+    title: 'I\'m a Marker!'
+  });
+}
+function addMarker(location, title){
+  marker = new google.maps.Marker({
+    position: location,
+    map: map,
+    title: title
+  });
+}
+
+function userInputMarker(lat, long) {
+  var lat = $(".lat").val();
+  var long = $(".long").val();
+  var userLatLong = {lat: parseFloat(lat), lng: parseFloat(long)};
+  map.panTo(new google.maps.LatLng(lat, long));
+  console.log(parseFloat(lat), parseFloat(long));
+}
+
+    </script>
   </body>
 </html>
